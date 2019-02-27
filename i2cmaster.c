@@ -2,6 +2,8 @@
 
 #define PRESCALER_MAX 3
 
+uint8_t i2c_last_status;
+
 void i2c_init(i2c_bit_rate bit_rate)
 {
     i2c_set_bit_rate(bit_rate);
