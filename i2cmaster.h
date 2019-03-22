@@ -20,12 +20,12 @@ typedef enum
     I2C_3_2MHZ
 } i2c_bit_rate;
 
-inline void i2c_stop()
+static inline void i2c_stop()
 {
     TWCR = _BV(TWINT) | _BV(TWSTO) | _BV(TWEN);
 }
 
-inline uint8_t i2c_start()
+static inline uint8_t i2c_start()
 {
     TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN);
 
@@ -33,7 +33,7 @@ inline uint8_t i2c_start()
     return (i2c_last_status = TW_STATUS);
 }
 
-inline uint8_t i2c_rep_start()
+static inline uint8_t i2c_rep_start()
 {
     TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN);
 
@@ -41,7 +41,7 @@ inline uint8_t i2c_rep_start()
     return (i2c_last_status = TW_STATUS);
 }
 
-inline uint8_t i2c_send_sla(uint8_t slave_address, transfer_mode mode)
+static inline uint8_t i2c_send_sla(uint8_t slave_address, transfer_mode mode)
 {
     TWDR = (slave_address << 1) | mode;
 
@@ -50,7 +50,7 @@ inline uint8_t i2c_send_sla(uint8_t slave_address, transfer_mode mode)
     return (i2c_last_status = TW_STATUS);
 }
 
-inline uint8_t i2c_send_byte(uint8_t data)
+static inline uint8_t i2c_send_byte(uint8_t data)
 {
     TWDR = data;
 
@@ -59,7 +59,7 @@ inline uint8_t i2c_send_byte(uint8_t data)
     return (i2c_last_status = TW_STATUS);
 }
 
-inline uint8_t i2c_receive_byte(uint8_t* data, bool send_ack)
+static inline uint8_t i2c_receive_byte(uint8_t* data, bool send_ack)
 {
     TWCR = _BV(TWINT) | (send_ack ? _BV(TWEA) : 0) | _BV(TWEN);
 
